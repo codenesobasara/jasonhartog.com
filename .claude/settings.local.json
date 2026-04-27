@@ -5,7 +5,15 @@
       "mcp__Sanity__list_projects",
       "WebFetch(domain:jasonhartog.com)",
       "Bash(mv \"F:/DevelopmentWork/Jasonhartog.com\" \"F:/DevelopmentWork/jasonhartog-temp\")",
-      "Bash(mv \"F:/DevelopmentWork/jasonhartog-temp\" \"F:/DevelopmentWork/jasonhartog.com\")"
+      "Bash(mv \"F:/DevelopmentWork/jasonhartog-temp\" \"F:/DevelopmentWork/jasonhartog.com\")",
+      "mcp__Sanity__list_datasets",
+      "mcp__Sanity__create_dataset",
+      "Bash(npm install:*)",
+      "Bash(npm ls:*)",
+      "mcp__Sanity__search_docs",
+      "mcp__Sanity__read_docs",
+      "mcp__Sanity__add_cors_origin",
+      "Bash(npx sanity:*)"
     ]
   }
 }
