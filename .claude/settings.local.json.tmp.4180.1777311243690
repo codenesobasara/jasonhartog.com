@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.barrymackphoto.com)",
+      "mcp__Sanity__list_projects"
+    ]
+  }
+}
