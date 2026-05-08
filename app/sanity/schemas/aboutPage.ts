@@ -12,6 +12,12 @@
         validation: (rule) => rule.required(),
       }),
       defineField({
+        name: 'quote',
+        title: 'Quote',
+        type: 'text',
+        description: 'A personal quote displayed under the name.',
+      }),
+      defineField({
         name: 'headshot',
         title: 'Headshot',
         type: 'image',
@@ -27,6 +33,13 @@
         name: 'bio',
         title: 'Bio',
         type: 'blockContent',
+      }),
+      defineField({
+        name: 'clients',
+        title: 'Clients',
+        type: 'array',
+        of: [{ type: 'string' }],
+        description: 'List of client names displayed above the testimonials.',
       }),
       defineField({
         name: 'testimonials',

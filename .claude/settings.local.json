@@ -13,7 +13,15 @@
       "mcp__Sanity__search_docs",
       "mcp__Sanity__read_docs",
       "mcp__Sanity__add_cors_origin",
-      "Bash(npx sanity:*)"
+      "Bash(npx sanity:*)",
+      "mcp__Sanity__create_documents_from_json",
+      "Bash(npx next:*)",
+      "mcp__Sanity__publish_documents",
+      "Bash(npm run:*)",
+      "mcp__Sanity__query_documents",
+      "mcp__Sanity__get_schema",
+      "Bash(npm list:*)",
+      "Bash(ls node_modules/yet-another-react-lightbox)"
     ]
   }
 }

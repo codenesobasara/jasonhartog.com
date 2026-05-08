@@ -44,6 +44,32 @@
         validation: (rule) => rule.required(),
       }),
       defineField({
+        name: 'headerImage',
+        title: 'Header Image (Desktop)',
+        type: 'image',
+        description: 'Wide horizontal banner displayed at the top of the gallery page. Use a landscape-oriented image sized around 1600×500px or similar wide aspect ratio.',
+        options: { hotspot: true },
+      }),
+      defineField({
+        name: 'headerImageAlt',
+        title: 'Header Image Alt Text (Desktop)',
+        type: 'string',
+        hidden: ({ parent }) => !parent?.headerImage,
+      }),
+      defineField({
+        name: 'headerImageMobile',
+        title: 'Header Image (Mobile)',
+        type: 'image',
+        description: 'Header image shown on mobile devices. Use a portrait-oriented image sized around 800×1000px.',
+        options: { hotspot: true },
+      }),
+      defineField({
+        name: 'headerImageMobileAlt',
+        title: 'Header Image Alt Text (Mobile)',
+        type: 'string',
+        hidden: ({ parent }) => !parent?.headerImageMobile,
+      }),
+      defineField({
         name: 'galleryImages',
         title: 'Gallery Images',
         type: 'array',
