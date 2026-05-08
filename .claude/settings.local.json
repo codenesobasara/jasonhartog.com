@@ -21,7 +21,10 @@
       "mcp__Sanity__query_documents",
       "mcp__Sanity__get_schema",
       "Bash(npm list:*)",
-      "Bash(ls node_modules/yet-another-react-lightbox)"
+      "Bash(ls node_modules/yet-another-react-lightbox)",
+      "Bash(xargs grep:*)",
+      "Bash(npx opennextjs-cloudflare:*)",
+      "Bash(npm cache:*)"
     ]
   }
 }
