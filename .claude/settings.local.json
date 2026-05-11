@@ -24,7 +24,9 @@
       "Bash(ls node_modules/yet-another-react-lightbox)",
       "Bash(xargs grep:*)",
       "Bash(npx opennextjs-cloudflare:*)",
-      "Bash(npm cache:*)"
+      "Bash(npm cache:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }
