@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Lightbox from 'yet-another-react-lightbox'
 import 'yet-another-react-lightbox/styles.css'
@@ -16,6 +16,22 @@ export default function GallerySlider({ images }: { images: GalleryImage[] }) {
   const dragged = useRef(false)
   const [open, setOpen] = useState(false)
   const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const api = emblaApi
+    if (!api) return
+    const root = api.rootNode()
+    let scrollTimeout: ReturnType<typeof setTimeout> | null = null
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      if (scrollTimeout) return
+      if (e.deltaY > 0 || e.deltaX > 0) api.scrollNext()
+      else api.scrollPrev()
+      scrollTimeout = setTimeout(() => { scrollTimeout = null }, 300)
+    }
+    root.addEventListener('wheel', onWheel, { passive: false })
+    return () => root.removeEventListener('wheel', onWheel)
+  }, [emblaApi])
 
   const onPointerDown = useCallback(() => {
     dragged.current = false
@@ -35,8 +51,8 @@ export default function GallerySlider({ images }: { images: GalleryImage[] }) {
   return (
     <>
       {/* Desktop / landscape: horizontal slider */}
-      <div className="relative overflow-hidden h-[calc(100dvh-var(--nav-height))] hidden landscape:block" ref={emblaRef}>
-        <div className="flex gap-8 h-full">
+      <div className="relative overflow-hidden h-[calc(100dvh-var(--nav-height)-20px)] hidden landscape:block pb-[20px]" ref={emblaRef}>
+        <div className="flex gap-2 h-full">
           {images.map((item, i) => (
             <div
               key={i}
@@ -50,6 +66,8 @@ export default function GallerySlider({ images }: { images: GalleryImage[] }) {
                 src={item.src}
                 alt={item.alt}
                 draggable={false}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
               />
             </div>
           ))}
@@ -76,6 +94,8 @@ export default function GallerySlider({ images }: { images: GalleryImage[] }) {
             className="w-full h-auto cursor-pointer"
             src={item.src}
             alt={item.alt}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
             onClick={() => { setIndex(i); setOpen(true) }}
           />
         ))}

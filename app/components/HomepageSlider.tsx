@@ -46,7 +46,7 @@ export default function HomepageSlider({ pages }: { pages: any[] }) {
       {/* Desktop / landscape: horizontal slider */}
       <div className="relative overflow-hidden h-[calc(100dvh-var(--nav-height)-20px)] hidden landscape:block pb-[20px]" ref={emblaRef}>
         <div className="flex gap-2 h-full">
-          {pages.map((page) => (
+          {pages.map((page, i) => (
             <div
               key={page.slug.current}
               className="relative flex-none h-full cursor-pointer"
@@ -56,9 +56,11 @@ export default function HomepageSlider({ pages }: { pages: any[] }) {
             >
               <img
                 className="h-full w-auto"
-                src={urlFor(page.mainImage).width(1200).quality(80).url()}
+                src={urlFor(page.mainImage).width(1200).quality(80).auto('format').url()}
                 alt={page.mainImageAlt}
                 draggable={false}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
               />
               <span className="absolute bottom-8 left-8 text-white text-xl bg-gray-600/20 px-4 py-2 backdrop-blur-sm rounded-lg">{page.categoryLabel}</span>
             </div>
@@ -80,12 +82,14 @@ export default function HomepageSlider({ pages }: { pages: any[] }) {
 
       {/* Portrait: stacked images with overlay */}
       <div className="flex flex-col gap-6 px-4 py-6 landscape:hidden">
-        {pages.map((page) => (
+        {pages.map((page, i) => (
           <Link key={page.slug.current} href={`/${page.slug.current}`} className="relative block">
             <img
               className="w-full h-auto"
-              src={urlFor(page.mainImage).width(800).quality(80).url()}
+              src={urlFor(page.mainImage).width(800).quality(80).auto('format').url()}
               alt={page.mainImageAlt}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
             />
             <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
               <span className="text-white/80 text-lg uppercase tracking-widest font-light">

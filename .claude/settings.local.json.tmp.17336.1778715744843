@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.barrymackphoto.com)",
+      "mcp__Sanity__list_projects",
+      "WebFetch(domain:jasonhartog.com)",
+      "Bash(mv \"F:/DevelopmentWork/Jasonhartog.com\" \"F:/DevelopmentWork/jasonhartog-temp\")",
+      "Bash(mv \"F:/DevelopmentWork/jasonhartog-temp\" \"F:/DevelopmentWork/jasonhartog.com\")",
+      "mcp__Sanity__list_datasets",
+      "mcp__Sanity__create_dataset",
+      "Bash(npm install:*)",
+      "Bash(npm ls:*)",
+      "mcp__Sanity__search_docs",
+      "mcp__Sanity__read_docs",
+      "mcp__Sanity__add_cors_origin",
+      "Bash(npx sanity:*)",
+      "mcp__Sanity__create_documents_from_json",
+      "Bash(npx next:*)",
+      "mcp__Sanity__publish_documents",
+      "Bash(npm run:*)",
+      "mcp__Sanity__query_documents",
+      "mcp__Sanity__get_schema",
+      "Bash(npm list:*)",
+      "Bash(ls node_modules/yet-another-react-lightbox)",
+      "Bash(xargs grep:*)",
+      "Bash(npx opennextjs-cloudflare:*)",
+      "Bash(npm cache:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:jasonhartog.focuspointmedia.workers.dev)",
+      "Bash(npx wrangler:*)",
+      "Bash(curl:*)",
+      "Bash(node -e \"console.log\\(require\\('next/package.json'\\).version\\)\")",
+      "mcp__Sanity__get_project_studios",
+      "WebFetch(domain:d5c50822-jasonhartog.focuspointmedia.workers.dev)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(rm -rf .next)",
+      "Bash(powershell:*)"
+    ]
+  }
+}

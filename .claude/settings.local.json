@@ -35,7 +35,14 @@
       "WebFetch(domain:d5c50822-jasonhartog.focuspointmedia.workers.dev)",
       "Bash(taskkill //F //IM node.exe)",
       "Bash(rm -rf .next)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(git config:*)",
+      "Bash(python -m json.tool)",
+      "Bash(node /tmp/upload-exterior.mjs)",
+      "Bash(cp /tmp/upload-exterior.mjs \"C:\\\\Users\\\\nesob\\\\Desktop\\\\dev\\\\jasonhartog.com\\\\upload-exterior.mjs\")",
+      "Bash(node upload-exterior.mjs)",
+      "Bash(node -e ':*)",
+      "Bash(node upload-interior.mjs)"
     ]
   }
 }
