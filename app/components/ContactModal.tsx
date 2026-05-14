@@ -18,6 +18,7 @@ export default function ContactModal({ open, onClose }: { open: boolean; onClose
   const turnstileRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
   const renderWidget = useCallback(() => {
     if (!turnstileRef.current || !window.turnstile || widgetIdRef.current) return
@@ -40,6 +41,7 @@ export default function ContactModal({ open, onClose }: { open: boolean; onClose
       setTimeout(renderWidget, 100)
     } else {
       dialog.close()
+      setStatus('idle')
       // Clean up widget when modal closes
       if (widgetIdRef.current && window.turnstile) {
         window.turnstile.remove(widgetIdRef.current)
@@ -80,14 +82,37 @@ export default function ContactModal({ open, onClose }: { open: boolean; onClose
             <h2 className="text-2xl font-light text-black">Contact</h2>
             <button onClick={onClose} className="text-black text-2xl leading-none">&times;</button>
           </div>
+          {status === 'sent' ? (
+            <div className="py-12 text-center">
+              <p className="text-lg text-black mb-2">Thank you for reaching out!</p>
+              <p className="text-sm text-gray-600">Jason will be in touch shortly.</p>
+            </div>
+          ) : (
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault()
               const form = e.currentTarget
               const honeypot = (form.elements.namedItem('website') as HTMLInputElement).value
               if (honeypot) return
-              if (!turnstileToken) return
-              // Form submission TBD — include turnstileToken for server-side verification
+
+              setStatus('sending')
+              try {
+                const res = await fetch('/api/contact', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    name: (form.elements.namedItem('name') as HTMLInputElement).value,
+                    email: (form.elements.namedItem('email') as HTMLInputElement).value,
+                    phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
+                    message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+                    website: honeypot,
+                  }),
+                })
+                if (!res.ok) throw new Error('Failed to send')
+                setStatus('sent')
+              } catch {
+                setStatus('error')
+              }
             }}
             className="flex flex-col gap-4"
           >
@@ -128,14 +153,18 @@ export default function ContactModal({ open, onClose }: { open: boolean; onClose
               className="border border-gray-300 px-4 py-3 text-black text-sm resize-none"
             />
             <div ref={turnstileRef} />
+            {status === 'error' && (
+              <p className="text-red-600 text-sm">Something went wrong. Please try again.</p>
+            )}
             <button
               type="submit"
-              disabled={!turnstileToken}
+              disabled={status === 'sending'}
               className="bg-black text-white py-3 text-sm tracking-wide hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              Send
+              {status === 'sending' ? 'Sending...' : 'Send'}
             </button>
           </form>
+          )}
         </div>
       </dialog>
     </>
