@@ -1,7 +1,5 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 async function createHubSpotContact(name: string, email: string, phone: string, message: string) {
   const nameParts = name.trim().split(/\s+/)
   const firstname = nameParts[0]
@@ -66,6 +64,8 @@ export async function POST(request: Request) {
   if (!name || !email || !message) {
     return Response.json({ error: 'Missing required fields' }, { status: 400 })
   }
+
+  const resend = new Resend(process.env.RESEND_API_KEY)
 
   try {
     // Send emails and create HubSpot contact in parallel
