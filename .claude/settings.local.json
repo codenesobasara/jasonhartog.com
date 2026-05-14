@@ -26,7 +26,16 @@
       "Bash(npx opennextjs-cloudflare:*)",
       "Bash(npm cache:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:jasonhartog.focuspointmedia.workers.dev)",
+      "Bash(npx wrangler:*)",
+      "Bash(curl:*)",
+      "Bash(node -e \"console.log\\(require\\('next/package.json'\\).version\\)\")",
+      "mcp__Sanity__get_project_studios",
+      "WebFetch(domain:d5c50822-jasonhartog.focuspointmedia.workers.dev)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(rm -rf .next)",
+      "Bash(powershell:*)"
     ]
   }
 }
