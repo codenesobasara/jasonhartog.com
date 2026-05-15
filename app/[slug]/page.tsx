@@ -15,7 +15,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ slug: 
   if (!page) notFound()
 
   const images = (page.galleryImages || []).map((item: any) => ({
-    src: urlFor(item.image).width(1200).quality(80).auto('format').url(),
+    src: urlFor(item.image).height(1400).quality(82).auto('format').url(),
     alt: item.alt,
     caption: item.caption,
   }))
