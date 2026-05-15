@@ -10,7 +10,7 @@ type GalleryImage = {
   caption?: string
 }
 
-export default function GallerySlider({ images }: { images: GalleryImage[] }) {
+export default function GallerySlider({ images, imageBorder }: { images: GalleryImage[]; imageBorder?: boolean }) {
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const currentX = useRef(0)
@@ -109,7 +109,7 @@ export default function GallerySlider({ images }: { images: GalleryImage[] }) {
           {images.map((item, i) => (
             <div key={i} className="relative flex-none h-full" onClick={() => handleClick(i)}>
               <img
-                className="h-full w-auto pointer-events-none select-none"
+                className={`h-full w-auto pointer-events-none select-none${imageBorder ? ' border border-gray-300' : ''}`}
                 src={item.src}
                 alt={item.alt}
                 draggable={false}
@@ -137,7 +137,7 @@ export default function GallerySlider({ images }: { images: GalleryImage[] }) {
         {images.map((item, i) => (
           <img
             key={i}
-            className="w-full h-auto cursor-pointer"
+            className={`w-full h-auto cursor-pointer${imageBorder ? ' border border-gray-300' : ''}`}
             src={item.src}
             alt={item.alt}
             loading={i === 0 ? 'eager' : 'lazy'}
