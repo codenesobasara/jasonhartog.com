@@ -3,7 +3,7 @@
 import { useRef, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { urlFor } from '@/app/sanity/image'
+import { urlFor, srcSetFor, landscapeSizesFor } from '@/app/sanity/image'
 
 export default function HomepageSlider({ pages }: { pages: any[] }) {
   const viewportRef = useRef<HTMLDivElement>(null)
@@ -108,14 +108,24 @@ export default function HomepageSlider({ pages }: { pages: any[] }) {
               className="relative flex-none h-full"
               onClick={() => handleClick(page.slug.current)}
             >
-              <img
-                className="h-full w-auto pointer-events-none select-none"
-                src={urlFor(page.mainImage).height(1400).quality(82).auto('format').url()}
-                alt={page.mainImageAlt}
-                draggable={false}
-                loading={i === 0 ? 'eager' : 'lazy'}
-                decoding="async"
-              />
+              <picture>
+                <source
+                  media="(orientation: landscape)"
+                  srcSet={srcSetFor(page.mainImage, 82)}
+                  sizes={landscapeSizesFor(page.mainImage)}
+                />
+                <img
+                  className="h-full w-auto pointer-events-none select-none"
+                  src={urlFor(page.mainImage).width(1440).quality(82).auto('format').fit('max').url()}
+                  srcSet={srcSetFor(page.mainImage, 82)}
+                  sizes="100vw"
+                  alt={page.mainImageAlt}
+                  draggable={false}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  fetchPriority={i === 0 ? 'high' : undefined}
+                  decoding="async"
+                />
+              </picture>
               <span className="absolute bottom-8 left-8 text-white text-xl bg-gray-600/20 px-4 py-2 backdrop-blur-sm rounded-lg">{page.categoryLabel}</span>
             </div>
           ))}
@@ -138,13 +148,23 @@ export default function HomepageSlider({ pages }: { pages: any[] }) {
       <div className="flex flex-col gap-6 px-4 py-6 landscape:hidden">
         {pages.map((page, i) => (
           <Link key={page.slug.current} href={`/${page.slug.current}`} className="relative block">
-            <img
-              className="w-full h-auto"
-              src={urlFor(page.mainImage).height(1400).quality(82).auto('format').url()}
-              alt={page.mainImageAlt}
-              loading={i === 0 ? 'eager' : 'lazy'}
-              decoding="async"
-            />
+            <picture>
+              <source
+                media="(orientation: landscape)"
+                srcSet={srcSetFor(page.mainImage, 82)}
+                sizes={landscapeSizesFor(page.mainImage)}
+              />
+              <img
+                className="w-full h-auto"
+                src={urlFor(page.mainImage).width(1440).quality(82).auto('format').fit('max').url()}
+                srcSet={srcSetFor(page.mainImage, 82)}
+                sizes="100vw"
+                alt={page.mainImageAlt}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchPriority={i === 0 ? 'high' : undefined}
+                decoding="async"
+              />
+            </picture>
             <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
               <span className="text-white/80 text-lg uppercase tracking-widest font-light">
                 View {page.categoryLabel}

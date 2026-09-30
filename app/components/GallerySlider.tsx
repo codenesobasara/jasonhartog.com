@@ -6,6 +6,8 @@ import 'yet-another-react-lightbox/styles.css'
 
 type GalleryImage = {
   src: string
+  srcSet?: string
+  landscapeSizes?: string
   alt: string
   caption?: string
 }
@@ -108,14 +110,24 @@ export default function GallerySlider({ images, imageBorder }: { images: Gallery
         >
           {images.map((item, i) => (
             <div key={i} className="relative flex-none h-full" onClick={() => handleClick(i)}>
-              <img
-                className={`h-full w-auto pointer-events-none select-none${imageBorder ? ' border border-gray-300' : ''}`}
-                src={item.src}
-                alt={item.alt}
-                draggable={false}
-                loading={i === 0 ? 'eager' : 'lazy'}
-                decoding="async"
-              />
+              <picture>
+                <source
+                  media="(orientation: landscape)"
+                  srcSet={item.srcSet}
+                  sizes={item.landscapeSizes}
+                />
+                <img
+                  className={`h-full w-auto pointer-events-none select-none${imageBorder ? ' border border-gray-300' : ''}`}
+                  src={item.src}
+                  srcSet={item.srcSet}
+                  sizes="100vw"
+                  alt={item.alt}
+                  draggable={false}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  fetchPriority={i === 0 ? 'high' : undefined}
+                  decoding="async"
+                />
+              </picture>
             </div>
           ))}
         </div>
@@ -135,15 +147,24 @@ export default function GallerySlider({ images, imageBorder }: { images: Gallery
 
       <div className="flex flex-col gap-6 px-4 py-6 landscape:hidden">
         {images.map((item, i) => (
-          <img
-            key={i}
-            className={`w-full h-auto cursor-pointer${imageBorder ? ' border border-gray-300' : ''}`}
-            src={item.src}
-            alt={item.alt}
-            loading={i === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-            onClick={() => { setIndex(i); setOpen(true) }}
-          />
+          <picture key={i}>
+            <source
+              media="(orientation: landscape)"
+              srcSet={item.srcSet}
+              sizes={item.landscapeSizes}
+            />
+            <img
+              className={`w-full h-auto cursor-pointer${imageBorder ? ' border border-gray-300' : ''}`}
+              src={item.src}
+              srcSet={item.srcSet}
+              sizes="100vw"
+              alt={item.alt}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchPriority={i === 0 ? 'high' : undefined}
+              decoding="async"
+              onClick={() => { setIndex(i); setOpen(true) }}
+            />
+          </picture>
         ))}
       </div>
 

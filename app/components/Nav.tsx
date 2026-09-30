@@ -9,7 +9,7 @@ export default async function Nav() {
   ])
 
   const logoUrl = settings?.logo
-    ? urlFor(settings.logo).height(48).url()
+    ? urlFor(settings.logo).height(96).auto('format').url()
     : null
 
   return (

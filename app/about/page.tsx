@@ -14,7 +14,7 @@ export default async function AboutPage() {
   }
 
   const headshotUrl = about.headshot
-    ? urlFor(about.headshot).width(800).quality(80).url()
+    ? urlFor(about.headshot).width(800).quality(80).auto('format').url()
     : null
 
   return (

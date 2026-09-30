@@ -1,5 +1,5 @@
 import { getPortfolioPage, getportfoliopages } from '@/app/sanity/queries'
-import { urlFor } from '@/app/sanity/image'
+import { urlFor, srcSetFor, landscapeSizesFor } from '@/app/sanity/image'
 import { notFound } from 'next/navigation'
 import GallerySlider from '@/app/components/GallerySlider'
 
@@ -15,7 +15,9 @@ export default async function GalleryPage({ params }: { params: Promise<{ slug: 
   if (!page) notFound()
 
   const images = (page.galleryImages || []).map((item: any) => ({
-    src: urlFor(item.image).height(1400).quality(82).auto('format').url(),
+    src: urlFor(item.image).width(1920).quality(82).auto('format').fit('max').url(),
+    srcSet: srcSetFor(item.image, 82),
+    landscapeSizes: landscapeSizesFor(item.image),
     alt: item.alt,
     caption: item.caption,
   }))
